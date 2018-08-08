@@ -1,0 +1,6 @@
+[package]
+name = "optimization_test_problems"
+version = "0.1.0"
+authors = ["buzekjir <jirkabuzek705@gmail.com>"]
+
+[dependencies]
