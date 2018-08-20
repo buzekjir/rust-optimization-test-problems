@@ -1,13 +1,18 @@
+#![feature(test)]
+
+extern crate test;
+
 pub mod functions {
 
     use std::f64;
 
+    #[inline]
     pub fn ellips_func(x: &[f64]) -> f64 {
         let mut f: f64 = 0.0;
         let mut n: f64 = 0.0;
-        let dimension: f64 = x.len() as f64;
+        let med: f64 = x.len() as f64 - 1.0;
         for i in 0..x.len() {
-            f += f64::powf(10.0, 6.0 * n / (dimension - 1.0)) * x[i] * x[i];
+            f += f64::powf(1000000.0, n / med) * x[i] * x[i];
             n += 1.0;
         }
         f
@@ -105,4 +110,47 @@ pub mod functions {
         }
         418.9829 * x.len() as f64 - sum
     }
+}
+
+#[cfg(test)]
+mod tests_functions {
+    use functions;
+    use test::Bencher;
+
+    #[bench]
+    fn bench_bent_cigar_func(b: &mut Bencher) {
+        let _array: [f64; 30] = [0.0; 30];
+        b.iter(|| functions::bent_cigar_func(&_array[0..30]));
+    }
+
+    #[bench]
+    fn bench_ackley_func(b: &mut Bencher) {
+        let _array: [f64; 30] = [0.0; 30];
+        b.iter(|| functions::ackley_func(&_array[0..30]));
+    }
+
+    #[bench]
+    fn bench_weierstrass_func(b: &mut Bencher) {
+        let _array: [f64; 30] = [0.0; 30];
+        b.iter(|| functions::weierstrass_func(&_array[0..30]));
+    }
+
+    #[bench]
+    fn bench_griewank_func(b: &mut Bencher) {
+        let _array: [f64; 30] = [0.0; 30];
+        b.iter(|| functions::griewank_func(&_array[0..30]));
+    }
+
+    #[bench]
+    fn bench_rastrigin_func(b: &mut Bencher) {
+        let _array: [f64; 30] = [0.0; 30];
+        b.iter(|| functions::rastrigin_func(&_array[0..30]));
+    }
+
+    #[bench]
+    fn bench_schwefel_func(b: &mut Bencher) {
+        let _array: [f64; 30] = [0.0; 30];
+        b.iter(|| functions::schwefel_func(&_array[0..30]));
+    }
+
 }
